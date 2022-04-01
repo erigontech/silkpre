@@ -21,11 +21,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#define SILKPRE_BLAKE2B_BLOCKBYTES 128
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
-
-enum SilkpreBlake2bConstant { SILKPRE_BLAKE2B_BLOCKBYTES = 128 };
 
 typedef struct SilkpreBlake2bState__ {
     uint64_t h[8];

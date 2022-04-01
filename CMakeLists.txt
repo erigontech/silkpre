@@ -22,4 +22,6 @@ project(silkpre)
 add_library(silkpre
     silkpre/blake2b.c
     silkpre/blake2b.h
+    silkpre/rmd160.c
+    silkpre/rmd160.h
 )
