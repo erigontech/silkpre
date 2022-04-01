@@ -19,6 +19,17 @@ cmake_minimum_required(VERSION 3.16.2)
 
 project(silkpre)
 
+set (CMAKE_CXX_STANDARD 17)
+
+# libff
+set(CURVE "ALT_BN128" CACHE STRING "" FORCE)
+option(WITH_PROCPS "" OFF)
+option(IS_LIBFF_PARENT "" OFF)
+if(MSVC)
+    option(MPIR_INSTEAD_OF_GMP "" ON)
+endif()
+add_subdirectory(third_party/libff)
+
 add_library(silkpre
     silkpre/blake2b.c
     silkpre/blake2b.h
@@ -26,6 +37,8 @@ add_library(silkpre
     silkpre/rmd160.h
     silkpre/sha256.c
     silkpre/sha256.h
+    silkpre/snark.cpp
+    silkpre/snark.hpp
 )
-
 target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(silkpre PUBLIC ff)
