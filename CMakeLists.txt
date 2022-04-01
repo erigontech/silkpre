@@ -27,3 +27,5 @@ add_library(silkpre
     silkpre/sha256.c
     silkpre/sha256.h
 )
+
+target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
