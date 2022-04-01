@@ -1,4 +1,4 @@
-#[[
+/*
    Copyright 2022 The Silkpre Authors
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,23 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-]]
+*/
 
-# ethash requires cmake 3.16.2
-cmake_minimum_required(VERSION 3.16.2)
+#ifndef SILKPRE_SHA256_H_
+#define SILKPRE_SHA256_H_
 
-project(silkpre)
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
-add_library(silkpre
-    silkpre/blake2b.c
-    silkpre/blake2b.h
-    silkpre/rmd160.c
-    silkpre/rmd160.h
-    silkpre/sha256.c
-    silkpre/sha256.h
-)
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+void silkpre_sha256(uint8_t hash[32], const uint8_t* input, size_t len, bool use_cpu_extensions);
+
+#if defined(__cplusplus)
+}
+#endif
+
+#endif  // SILKPRE_SHA256_H_

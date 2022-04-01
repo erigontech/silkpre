@@ -8,8 +8,7 @@
  *
  *      AUTHOR:   Antoon Bosselaers, ESAT-COSIC
  *      DATE:     1 March 1996
- *      MODIFIED: 11 December 2020 by Andrew Ashikhmin for Silkworm
- *      VERSION:  1.0 + Silkworm modifications
+ *      MODIFIED: 2020-2022 by Andrew Ashikhmin
  *
  *      Copyright (c) 1996 Katholieke Universiteit Leuven
  *
@@ -42,13 +41,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define SILKPRE_RMD160_OUT_SIZE 20
-
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
-void silkpre_rmd160(uint8_t out[SILKPRE_RMD160_OUT_SIZE], const uint8_t* data, size_t len);
+void silkpre_rmd160(uint8_t out[20], const uint8_t* input, size_t len);
 
 #if defined(__cplusplus)
 }

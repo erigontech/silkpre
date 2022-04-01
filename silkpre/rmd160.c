@@ -8,8 +8,7 @@
  *
  *      AUTHOR:   Antoon Bosselaers, ESAT-COSIC
  *      DATE:     1 March 1996
- *      MODIFIED: 11 December 2020 by Andrew Ashikhmin for Silkworm
- *      VERSION:  1.0 + Silkworm modifications
+ *      MODIFIED: 2020-2022 by Andrew Ashikhmin
  *
  *      Copyright (c) 1996 Katholieke Universiteit Leuven
  *
@@ -369,12 +368,10 @@ static inline uint32_t load32(const void* src) {
     return w;
 }
 
-void silkpre_rmd160(uint8_t out[SILKPRE_RMD160_OUT_SIZE], const uint8_t* data, size_t len) {
+void silkpre_rmd160(uint8_t out[20], const uint8_t* ptr, size_t len) {
     uint32_t buf[160 / 32];
 
     rmd160_init(buf);
-
-    uint8_t const* ptr = data;
 
     uint32_t current[16];
     for (size_t remaining = len; remaining >= 64; remaining -= 64) {
