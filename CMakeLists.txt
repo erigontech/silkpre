@@ -17,9 +17,24 @@
 # ethash requires cmake 3.16.2
 cmake_minimum_required(VERSION 3.16.2)
 
-project(silkpre)
+option(SILKPRE_TESTING "Build tests and test tools" OFF)
 
-set(CMAKE_CXX_STANDARD 17)
+get_directory_property(SILKPRE_HAS_PARENT PARENT_DIRECTORY)
+if(NOT SILKPRE_HAS_PARENT)
+    if(NOT CMAKE_TOOLCHAIN_FILE)
+        set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/toolchain.cmake CACHE FILEPATH "" FORCE)
+    endif()
+
+    if(SILKPRE_TESTING)
+        set(HUNTER_PACKAGES Boost Catch)
+    endif()
+
+    include(FetchContent)
+    FetchContent_Declare(SetupHunter GIT_REPOSITORY https://github.com/cpp-pm/gate)
+    FetchContent_MakeAvailable(SetupHunter)
+endif()
+
+project(silkpre)
 
 # libff
 set(CURVE "ALT_BN128" CACHE STRING "" FORCE)
@@ -31,3 +46,7 @@ endif()
 add_subdirectory(third_party/libff)
 
 add_subdirectory(lib)
+
+if(SILKPRE_TESTING)
+    add_subdirectory(test)
+endif()
