@@ -26,7 +26,7 @@ if(NOT SILKPRE_HAS_PARENT)
     endif()
 
     if(SILKPRE_TESTING)
-        set(HUNTER_PACKAGES Boost Catch)
+        set(HUNTER_PACKAGES Catch)
     endif()
 
     include(FetchContent)

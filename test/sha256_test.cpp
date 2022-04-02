@@ -16,39 +16,30 @@
 
 #include <string>
 
-#include <boost/algorithm/hex.hpp>
 #include <catch2/catch.hpp>
 
 #include <silkpre/sha256.h>
 
+#include "hex.hpp"
+
 TEST_CASE("SHA256 of empty string") {
     uint8_t hash[32];
     silkpre_sha256(hash, nullptr, 0, /*use_cpu_extensions=*/false);
-    std::string hex1;
-    boost::algorithm::hex_lower(std::begin(hash), std::end(hash), std::back_inserter(hex1));
-    CHECK(hex1 == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    CHECK(to_hex(hash, 32) == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
 
     silkpre_sha256(hash, nullptr, 0, /*use_cpu_extensions=*/true);
-    std::string hex2;
-    boost::algorithm::hex_lower(std::begin(hash), std::end(hash), std::back_inserter(hex2));
-    CHECK(hex2 == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    CHECK(to_hex(hash, 32) == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
 }
 
 TEST_CASE("SHA256 sample") {
-    std::basic_string<uint8_t> input;
-    boost::algorithm::unhex(
-        "1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234"
-        "567812345678",
-        std::back_inserter(input));
+    std::basic_string<uint8_t> input{
+        from_hex("1234567812345678123456781234567812345678123456781234567812345678123456781234567812345678123456781234"
+                 "567812345678")};
 
     uint8_t hash[32];
     silkpre_sha256(hash, input.data(), input.length(), /*use_cpu_extensions=*/false);
-    std::string hex1;
-    boost::algorithm::hex_lower(std::begin(hash), std::end(hash), std::back_inserter(hex1));
-    CHECK(hex1 == "7303caef875be8c39b2c2f1905ea24adcc024bef6830a965fe05370f3170dc52");
+    CHECK(to_hex(hash, 32) == "7303caef875be8c39b2c2f1905ea24adcc024bef6830a965fe05370f3170dc52");
 
     silkpre_sha256(hash, input.data(), input.length(), /*use_cpu_extensions=*/true);
-    std::string hex2;
-    boost::algorithm::hex_lower(std::begin(hash), std::end(hash), std::back_inserter(hex2));
-    CHECK(hex2 == "7303caef875be8c39b2c2f1905ea24adcc024bef6830a965fe05370f3170dc52");
+    CHECK(to_hex(hash, 32) == "7303caef875be8c39b2c2f1905ea24adcc024bef6830a965fe05370f3170dc52");
 }

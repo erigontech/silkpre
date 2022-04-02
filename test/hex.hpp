@@ -1,4 +1,4 @@
-#[[
+/*
    Copyright 2022 The Silkpre Authors
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +12,19 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-]]
+*/
 
-find_package(Catch2 CONFIG REQUIRED)
+#ifndef SILKPRE_HEX_HPP_
+#define SILKPRE_HEX_HPP_
 
-add_executable(unit_test unit_test.cpp hex.hpp hex.cpp sha256_test.cpp)
-target_link_libraries(unit_test Catch2::Catch2 silkpre)
+#include <stddef.h>
+#include <stdint.h>
+
+#include <string>
+#include <string_view>
+
+std::string to_hex(const uint8_t* bytes, size_t len);
+
+std::basic_string<uint8_t> from_hex(std::string_view hex);
+
+#endif  // SILKPRE_HEX_HPP_
