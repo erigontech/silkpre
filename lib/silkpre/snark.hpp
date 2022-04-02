@@ -41,11 +41,11 @@ using Scalar = libff::bigint<libff::alt_bn128_q_limbs>;
 // May be called many times from multiple threads.
 void init_libff() noexcept;
 
-Scalar to_scalar(const uint8_t* bytes32_be) noexcept;
+Scalar to_scalar(const uint8_t bytes_be[32]) noexcept;
 
-std::optional<libff::alt_bn128_G1> decode_g1_element(const uint8_t* bytes64_be) noexcept;
+std::optional<libff::alt_bn128_G1> decode_g1_element(const uint8_t bytes_be[64]) noexcept;
 
-std::optional<libff::alt_bn128_G2> decode_g2_element(const uint8_t* bytes128_be) noexcept;
+std::optional<libff::alt_bn128_G2> decode_g2_element(const uint8_t bytes_be[128]) noexcept;
 
 std::basic_string<uint8_t> encode_g1_element(libff::alt_bn128_G1 p) noexcept;
 

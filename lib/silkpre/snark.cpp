@@ -34,10 +34,10 @@ void init_libff() noexcept {
     }();
 }
 
-Scalar to_scalar(const uint8_t* bytes32_be) noexcept {
+Scalar to_scalar(const uint8_t bytes_be[32]) noexcept {
     mpz_t m;
     mpz_init(m);
-    mpz_import(m, 32, /*order=*/1, /*size=*/1, /*endian=*/0, /*nails=*/0, bytes32_be);
+    mpz_import(m, 32, /*order=*/1, /*size=*/1, /*endian=*/0, /*nails=*/0, bytes_be);
     Scalar out{m};
     mpz_clear(m);
     return out;
@@ -49,13 +49,13 @@ static bool valid_element_of_fp(const Scalar& x) noexcept {
     return mpn_cmp(x.data, libff::alt_bn128_modulus_q.data, libff::alt_bn128_q_limbs) < 0;
 }
 
-std::optional<libff::alt_bn128_G1> decode_g1_element(const uint8_t* bytes64_be) noexcept {
-    Scalar x{to_scalar(bytes64_be)};
+std::optional<libff::alt_bn128_G1> decode_g1_element(const uint8_t bytes_be[64]) noexcept {
+    Scalar x{to_scalar(bytes_be)};
     if (!valid_element_of_fp(x)) {
         return {};
     }
 
-    Scalar y{to_scalar(bytes64_be + 32)};
+    Scalar y{to_scalar(bytes_be + 32)};
     if (!valid_element_of_fp(y)) {
         return {};
     }
@@ -71,10 +71,10 @@ std::optional<libff::alt_bn128_G1> decode_g1_element(const uint8_t* bytes64_be) 
     return point;
 }
 
-static std::optional<libff::alt_bn128_Fq2> decode_fp2_element(const uint8_t* bytes64_be) noexcept {
+static std::optional<libff::alt_bn128_Fq2> decode_fp2_element(const uint8_t bytes_be[64]) noexcept {
     // big-endian encoding
-    Scalar c0{to_scalar(bytes64_be + 32)};
-    Scalar c1{to_scalar(bytes64_be)};
+    Scalar c0{to_scalar(bytes_be + 32)};
+    Scalar c1{to_scalar(bytes_be)};
 
     if (!valid_element_of_fp(c0) || !valid_element_of_fp(c1)) {
         return {};
@@ -83,13 +83,13 @@ static std::optional<libff::alt_bn128_Fq2> decode_fp2_element(const uint8_t* byt
     return libff::alt_bn128_Fq2{c0, c1};
 }
 
-std::optional<libff::alt_bn128_G2> decode_g2_element(const uint8_t* bytes128_be) noexcept {
-    std::optional<libff::alt_bn128_Fq2> x{decode_fp2_element(bytes128_be)};
+std::optional<libff::alt_bn128_G2> decode_g2_element(const uint8_t bytes_be[128]) noexcept {
+    std::optional<libff::alt_bn128_Fq2> x{decode_fp2_element(bytes_be)};
     if (!x) {
         return {};
     }
 
-    std::optional<libff::alt_bn128_Fq2> y{decode_fp2_element(bytes128_be + 64)};
+    std::optional<libff::alt_bn128_Fq2> y{decode_fp2_element(bytes_be + 64)};
     if (!y) {
         return {};
     }
