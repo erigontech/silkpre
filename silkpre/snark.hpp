@@ -19,7 +19,6 @@
 
 #include <optional>
 #include <string>
-#include <string_view>
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wold-style-cast"
@@ -42,11 +41,11 @@ using Scalar = libff::bigint<libff::alt_bn128_q_limbs>;
 // May be called many times from multiple threads.
 void init_libff() noexcept;
 
-Scalar to_scalar(std::basic_string_view<uint8_t> big_endian) noexcept;
+Scalar to_scalar(const uint8_t* bytes32_be) noexcept;
 
-std::optional<libff::alt_bn128_G1> decode_g1_element(std::basic_string_view<uint8_t> bytes64_be) noexcept;
+std::optional<libff::alt_bn128_G1> decode_g1_element(const uint8_t* bytes64_be) noexcept;
 
-std::optional<libff::alt_bn128_G2> decode_g2_element(std::basic_string_view<uint8_t> bytes128_be) noexcept;
+std::optional<libff::alt_bn128_G2> decode_g2_element(const uint8_t* bytes128_be) noexcept;
 
 std::basic_string<uint8_t> encode_g1_element(libff::alt_bn128_G1 p) noexcept;
 
