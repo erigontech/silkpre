@@ -29,4 +29,5 @@ add_library(silkpre
     silkpre/y_parity_and_chain_id.hpp
 )
 target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(silkpre PUBLIC intx::intx PRIVATE ff)
+# TODO: make ff private
+target_link_libraries(silkpre PUBLIC intx::intx ff)
