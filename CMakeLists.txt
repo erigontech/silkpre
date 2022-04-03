@@ -26,7 +26,9 @@ if(NOT SILKPRE_HAS_PARENT)
     endif()
 
     if(SILKPRE_TESTING)
-        set(HUNTER_PACKAGES Catch)
+        set(HUNTER_PACKAGES Catch intx)
+    else()
+        set(HUNTER_PACKAGES intx)
     endif()
 
     include(FetchContent)
@@ -35,6 +37,8 @@ if(NOT SILKPRE_HAS_PARENT)
 endif()
 
 project(silkpre)
+
+# TODO: disable exceptions
 
 # libff
 set(CURVE "ALT_BN128" CACHE STRING "" FORCE)

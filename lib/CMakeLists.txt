@@ -14,6 +14,8 @@
    limitations under the License.
 ]]
 
+find_package(intx CONFIG REQUIRED)
+
 add_library(silkpre
     silkpre/blake2b.c
     silkpre/blake2b.h
@@ -23,6 +25,8 @@ add_library(silkpre
     silkpre/sha256.h
     silkpre/snark.cpp
     silkpre/snark.hpp
+    silkpre/y_parity_and_chain_id.cpp
+    silkpre/y_parity_and_chain_id.hpp
 )
 target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(silkpre PUBLIC ff)
+target_link_libraries(silkpre PUBLIC intx::intx PRIVATE ff)

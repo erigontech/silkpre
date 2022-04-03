@@ -28,6 +28,8 @@
 #include <libff/algebra/curves/alt_bn128/alt_bn128_g2.hpp>
 #pragma GCC diagnostic pop
 
+// TODO: make private
+
 // Utility functions for zkSNARK related precompiled contracts.
 // See Yellow Paper, Appendix E "Precompiled Contracts", as well as
 // https://eips.ethereum.org/EIPS/eip-196

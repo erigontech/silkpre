@@ -16,5 +16,5 @@
 
 find_package(Catch2 CONFIG REQUIRED)
 
-add_executable(unit_test unit_test.cpp hex.hpp hex.cpp sha256_test.cpp)
+add_executable(unit_test unit_test.cpp hex.hpp hex.cpp sha256_test.cpp y_parity_and_chain_id_test.cpp)
 target_link_libraries(unit_test Catch2::Catch2 silkpre)
