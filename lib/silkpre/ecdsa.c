@@ -24,7 +24,7 @@
 //! \brief Tries recover public key used for message signing.
 //! \return An optional Bytes. Should it has no value the recovery has failed
 //! This is different from recover_address as the whole 64 bytes are returned.
-static bool recover(uint8_t* out, const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
+static bool recover(uint8_t* public_key, const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
                     secp256k1_context* context) {
     secp256k1_ecdsa_recoverable_signature sig;
     if (!secp256k1_ecdsa_recoverable_signature_parse_compact(context, &sig, signature, odd_y_parity)) {
@@ -36,8 +36,8 @@ static bool recover(uint8_t* out, const uint8_t message[32], const uint8_t signa
         return false;
     }
 
-    size_t out_len = 65;
-    secp256k1_ec_pubkey_serialize(context, out, &out_len, &pub_key, SECP256K1_EC_UNCOMPRESSED);
+    size_t key_len = 65;
+    secp256k1_ec_pubkey_serialize(context, public_key, &key_len, &pub_key, SECP256K1_EC_UNCOMPRESSED);
     return true;
 }
 
