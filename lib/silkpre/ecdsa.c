@@ -32,7 +32,7 @@ static bool recover(uint8_t public_key[65], const uint8_t message[32], const uin
     }
 
     secp256k1_pubkey pub_key;
-    if (!secp256k1_ecdsa_recover(context, &pub_key, &sig, &message[0])) {
+    if (!secp256k1_ecdsa_recover(context, &pub_key, &sig, message)) {
         return false;
     }
 
