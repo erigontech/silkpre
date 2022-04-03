@@ -14,11 +14,14 @@
    limitations under the License.
 ]]
 
+find_package(ethash CONFIG REQUIRED)
 find_package(intx CONFIG REQUIRED)
 
 add_library(silkpre
     silkpre/blake2b.c
     silkpre/blake2b.h
+    silkpre/ecdsa.c
+    silkpre/ecdsa.h
     silkpre/rmd160.c
     silkpre/rmd160.h
     silkpre/sha256.c
@@ -30,4 +33,4 @@ add_library(silkpre
 )
 target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 # TODO: make ff private
-target_link_libraries(silkpre PUBLIC intx::intx ff)
+target_link_libraries(silkpre PUBLIC intx::intx ff secp256k1 PRIVATE ethash::keccak)
