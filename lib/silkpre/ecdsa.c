@@ -57,9 +57,8 @@ static bool public_key_to_address(uint8_t* out, const uint8_t public_key[65]) {
 bool silkpre_recover_address(uint8_t* out, const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
                              secp256k1_context* context) {
     uint8_t public_key[65];
-    bool converted = false;
-    if (recover(public_key, message, signature, odd_y_parity, context)) {
-        converted = public_key_to_address(out, public_key);
+    if (!recover(public_key, message, signature, odd_y_parity, context)) {
+        return false;
     }
-    return converted;
+    return public_key_to_address(out, public_key);
 }
