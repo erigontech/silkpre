@@ -24,7 +24,7 @@
 //! \brief Tries recover public key used for message signing.
 //! \return An optional Bytes. Should it has no value the recovery has failed
 //! This is different from recover_address as the whole 64 bytes are returned.
-static bool recover(uint8_t* public_key, const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
+static bool recover(uint8_t public_key[65], const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
                     secp256k1_context* context) {
     secp256k1_ecdsa_recoverable_signature sig;
     if (!secp256k1_ecdsa_recoverable_signature_parse_compact(context, &sig, signature, odd_y_parity)) {
@@ -44,7 +44,7 @@ static bool recover(uint8_t* public_key, const uint8_t message[32], const uint8_
 //! Tries extract address from recovered public key
 //! \param [in] public_key: The recovered public key
 //! \return Whether the recovery has succeeded.
-static bool public_key_to_address(uint8_t* out, const uint8_t public_key[65]) {
+static bool public_key_to_address(uint8_t out[20], const uint8_t public_key[65]) {
     if (public_key[0] != 4u) {
         return false;
     }
@@ -54,7 +54,7 @@ static bool public_key_to_address(uint8_t* out, const uint8_t public_key[65]) {
     return true;
 }
 
-bool silkpre_recover_address(uint8_t* out, const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
+bool silkpre_recover_address(uint8_t out[20], const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
                              secp256k1_context* context) {
     uint8_t public_key[65];
     if (!recover(public_key, message, signature, odd_y_parity, context)) {

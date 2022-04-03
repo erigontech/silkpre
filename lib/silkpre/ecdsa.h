@@ -36,7 +36,7 @@ extern "C" {
 //! \param [in] odd_y_parity : whether y parity is odd
 //! \param [in] context: a pointer to an existing secp256k1 context
 //! \return Whether the recovery has succeeded
-bool silkpre_recover_address(uint8_t* out, const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
+bool silkpre_recover_address(uint8_t out[20], const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
                              secp256k1_context* context);
 
 #if defined(__cplusplus)
