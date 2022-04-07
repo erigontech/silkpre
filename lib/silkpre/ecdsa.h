@@ -24,11 +24,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define SILKPRE_SECP256K1_CONTEXT_FLAGS (SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY)
-
 #if defined(__cplusplus)
 extern "C" {
 #endif
+
+enum { SILKPRE_SECP256K1_CONTEXT_FLAGS = (SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY) };
 
 //! \brief Tries recover the address used for message signing
 //! \param [in] message : the signed message
