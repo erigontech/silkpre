@@ -35,4 +35,4 @@ add_library(silkpre
 )
 target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 # TODO: make ff private
-target_link_libraries(silkpre PUBLIC intx::intx ff secp256k1 PRIVATE ethash::keccak)
+target_link_libraries(silkpre PUBLIC intx::intx ff secp256k1 PRIVATE ethash::keccak gmp)
