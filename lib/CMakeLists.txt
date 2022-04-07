@@ -22,6 +22,8 @@ add_library(silkpre
     silkpre/blake2b.h
     silkpre/ecdsa.c
     silkpre/ecdsa.h
+    silkpre/precompile.cpp
+    silkpre/precompile.h
     silkpre/rmd160.c
     silkpre/rmd160.h
     silkpre/sha256.c

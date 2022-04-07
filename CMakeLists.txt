@@ -30,7 +30,7 @@ if(NOT SILKPRE_HAS_PARENT)
     else()
         set(HUNTER_PACKAGES ethash intx)
     endif()
-
+    set(HUNTER_FILEPATH_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Hunter/config.cmake)
     include(FetchContent)
     FetchContent_Declare(SetupHunter GIT_REPOSITORY https://github.com/cpp-pm/gate)
     FetchContent_MakeAvailable(SetupHunter)

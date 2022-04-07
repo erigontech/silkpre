@@ -14,14 +14,9 @@
    limitations under the License.
 ]]
 
-find_package(Catch2 CONFIG REQUIRED)
-
-add_executable(unit_test
-    unit_test.cpp
-    hex.hpp
-    hex.cpp
-    precompile_test.cpp
-    sha256_test.cpp
-    y_parity_and_chain_id_test.cpp)
-
-target_link_libraries(unit_test Catch2::Catch2 silkpre)
+hunter_config(
+  intx
+  VERSION 0.8.0
+  URL https://github.com/chfast/intx/archive/v0.8.0.tar.gz
+  SHA1 612c46d636d9e381a8288d96c70b132190a79ca8
+)
