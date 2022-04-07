@@ -22,8 +22,8 @@ add_executable(unit_test
     hex.cpp
     precompile_test.cpp
     sha256_test.cpp
-    y_parity_and_chain_id_test.cpp)
-
+    y_parity_and_chain_id_test.cpp
+)
 target_link_libraries(unit_test Catch2::Catch2 silkpre)
 
 add_executable(main main.c)

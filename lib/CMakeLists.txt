@@ -28,11 +28,8 @@ add_library(silkpre
     silkpre/rmd160.h
     silkpre/sha256.c
     silkpre/sha256.h
-    silkpre/snark.cpp
-    silkpre/snark.hpp
     silkpre/y_parity_and_chain_id.cpp
     silkpre/y_parity_and_chain_id.hpp
 )
 target_include_directories(silkpre PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-# TODO: make ff private
-target_link_libraries(silkpre PUBLIC intx::intx ff secp256k1 PRIVATE ethash::keccak gmp)
+target_link_libraries(silkpre PUBLIC intx::intx secp256k1 PRIVATE ethash::keccak ff gmp)
