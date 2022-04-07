@@ -32,18 +32,18 @@ enum {
     SILKPRE_NUMBER_OF_ISTANBUL_CONTRACTS = 9,
 };
 
-struct SilkpreOutput {
+typedef struct SilkpreOutput {
     uint8_t* data;  // Has to be freed if not NULL!!!
     size_t size;
-};
+} SilkpreOutput;
 
-using SilkpreGasFunction = uint64_t (*)(const uint8_t* input, size_t len, int evmc_revision);
-using SilkpreRunFunction = SilkpreOutput (*)(const uint8_t* input, size_t len);
+typedef uint64_t (*SilkpreGasFunction)(const uint8_t* input, size_t len, int evmc_revision);
+typedef SilkpreOutput (*SilkpreRunFunction)(const uint8_t* input, size_t len);
 
-struct SilkpreContract {
+typedef struct SilkpreContract {
     SilkpreGasFunction gas;
     SilkpreRunFunction run;
-};
+} SilkpreContract;
 
 uint64_t silkpre_ecrec_gas(const uint8_t* input, size_t len, int evmc_revision);
 SilkpreOutput silkpre_ecrec_run(const uint8_t* input, size_t len);

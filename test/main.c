@@ -1,4 +1,4 @@
-#[[
+/*
    Copyright 2022 The Silkpre Authors
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,19 +12,12 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-]]
+*/
 
-find_package(Catch2 CONFIG REQUIRED)
+#include <stdio.h>
 
-add_executable(unit_test
-    unit_test.cpp
-    hex.hpp
-    hex.cpp
-    precompile_test.cpp
-    sha256_test.cpp
-    y_parity_and_chain_id_test.cpp)
+#include <silkpre/precompile.h>
 
-target_link_libraries(unit_test Catch2::Catch2 silkpre)
+/* Test C compilation of precompile.h */
 
-add_executable(main main.c)
-target_link_libraries(main silkpre)
+int main(void) { printf("silkpre_bn_add_gas = %llu\n", silkpre_bn_add_gas(NULL, 0, 0)); }

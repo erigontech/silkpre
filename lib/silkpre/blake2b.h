@@ -27,7 +27,7 @@ extern "C" {
 
 enum { SILKPRE_BLAKE2B_BLOCKBYTES = 128 };
 
-typedef struct SilkpreBlake2bState__ {
+typedef struct SilkpreBlake2bState {
     uint64_t h[8];
     uint64_t t[2];
     uint64_t f[2];
