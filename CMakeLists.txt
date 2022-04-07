@@ -26,7 +26,7 @@ if(NOT SILKPRE_HAS_PARENT)
     endif()
 
     if(SILKPRE_TESTING)
-        set(HUNTER_PACKAGES Catch ethash intx)
+        set(HUNTER_PACKAGES benchmark Catch ethash intx)
     else()
         set(HUNTER_PACKAGES ethash intx)
     endif()
