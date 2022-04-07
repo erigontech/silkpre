@@ -124,15 +124,13 @@ static inline void rmd160_init(uint32_t* MDbuf) {
     MDbuf[2] = 0x98badcfeUL;
     MDbuf[3] = 0x10325476UL;
     MDbuf[4] = 0xc3d2e1f0UL;
-
-    return;
 }
 
 /*
  *  the compression function.
  *  transforms MDbuf using message bytes X[0] through X[15]
  */
-static inline void rmd160_compress(uint32_t* MDbuf, uint32_t* X) {
+static inline void rmd160_compress(uint32_t* MDbuf, const uint32_t* X) {
     uint32_t aa = MDbuf[0], bb = MDbuf[1], cc = MDbuf[2], dd = MDbuf[3], ee = MDbuf[4];
     uint32_t aaa = MDbuf[0], bbb = MDbuf[1], ccc = MDbuf[2], ddd = MDbuf[3], eee = MDbuf[4];
 
@@ -323,8 +321,6 @@ static inline void rmd160_compress(uint32_t* MDbuf, uint32_t* X) {
     MDbuf[3] = MDbuf[4] + aa + bbb;
     MDbuf[4] = MDbuf[0] + bb + ccc;
     MDbuf[0] = ddd;
-
-    return;
 }
 
 /*
@@ -358,8 +354,6 @@ static inline void rmd160_finish(uint32_t* MDbuf, uint8_t const* strptr, uint32_
     X[14] = lswlen << 3;
     X[15] = (lswlen >> 29) | (mswlen << 3);
     rmd160_compress(MDbuf, X);
-
-    return;
 }
 
 static inline uint32_t load32(const void* src) {
