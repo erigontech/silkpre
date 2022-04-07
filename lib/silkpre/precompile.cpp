@@ -22,7 +22,6 @@
 #include <cstring>
 #include <limits>
 
-#include <ethash/keccak.hpp>
 #include <intx/intx.hpp>
 
 #include <silkpre/blake2b.h>
