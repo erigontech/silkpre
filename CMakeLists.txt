@@ -25,12 +25,15 @@ if(NOT SILKPRE_HAS_PARENT)
         set(CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/toolchain.cmake CACHE FILEPATH "" FORCE)
     endif()
 
+    set(HUNTER_URL "https://github.com/cpp-pm/hunter/archive/v0.24.1.tar.gz")
+    set(HUNTER_SHA1 "4942227a6e6f5e64414c55b97ef98609de199d18")
+
     if(SILKPRE_TESTING)
         set(HUNTER_PACKAGES benchmark Catch ethash intx)
     else()
         set(HUNTER_PACKAGES ethash intx)
     endif()
-    set(HUNTER_FILEPATH_CONFIG ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Hunter/config.cmake)
+
     include(FetchContent)
     FetchContent_Declare(SetupHunter GIT_REPOSITORY https://github.com/cpp-pm/gate)
     FetchContent_MakeAvailable(SetupHunter)
