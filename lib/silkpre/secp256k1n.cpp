@@ -14,7 +14,7 @@
    limitations under the License.
 */
 
-#include "y_parity_and_chain_id.hpp"
+#include "secp256k1n.hpp"
 
 namespace silkpre {
 

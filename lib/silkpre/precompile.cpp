@@ -30,8 +30,8 @@
 #include <silkpre/blake2b.h>
 #include <silkpre/ecdsa.h>
 #include <silkpre/rmd160.h>
+#include <silkpre/secp256k1n.hpp>
 #include <silkpre/sha256.h>
-#include <silkpre/y_parity_and_chain_id.hpp>
 
 enum {
     EVMC_ISTANBUL = 7,

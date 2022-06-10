@@ -14,11 +14,11 @@
    limitations under the License.
 */
 
-#ifndef SILKPRE_Y_PARITY_AND_CHAIN_ID_HPP_
-#define SILKPRE_Y_PARITY_AND_CHAIN_ID_HPP_
+#ifndef SILKPRE_SECP256K1N_HPP_
+#define SILKPRE_SECP256K1N_HPP_
 
 // See Yellow Paper, Appendix F "Signing Transactions"
-// and EIP-155: Simple replay attack protection.
+// and EIP-2: Homestead Hard-fork Changes.
 
 #include <optional>
 
@@ -26,6 +26,7 @@
 
 namespace silkpre {
 
+// See Appendix F "Signing Transactions" of the Yellow Paper.
 inline constexpr auto kSecp256k1n{
     intx::from_string<intx::uint256>("0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141")};
 
@@ -42,4 +43,4 @@ bool is_valid_signature(const intx::uint256& r, const intx::uint256& s, bool hom
 
 }  // namespace silkpre
 
-#endif  // SILKPRE_Y_PARITY_AND_CHAIN_ID_HPP_
+#endif  // SILKPRE_SECP256K1N_HPP_
