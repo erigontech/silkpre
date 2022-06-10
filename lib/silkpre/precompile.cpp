@@ -61,14 +61,13 @@ SilkpreOutput silkpre_ecrec_run(const uint8_t* input, size_t len) {
         return {out, 0};
     }
 
-    const std::optional<silkpre::YParityAndChainId> parity_and_id{silkpre::v_to_y_parity_and_chain_id(v)};
-    if (parity_and_id == std::nullopt || parity_and_id->chain_id != std::nullopt) {
+    if (v != 27 && v != 28) {
         return {out, 0};
     }
 
     std::memset(out, 0, 12);
     static secp256k1_context* context{secp256k1_context_create(SILKPRE_SECP256K1_CONTEXT_FLAGS)};
-    if (!silkpre_recover_address(out + 12, &d[0], &d[64], parity_and_id->odd, context)) {
+    if (!silkpre_recover_address(out + 12, &d[0], &d[64], v != 27, context)) {
         return {out, 0};
     }
     return {out, 32};
