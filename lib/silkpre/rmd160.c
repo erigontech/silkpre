@@ -326,10 +326,10 @@ static inline void rmd160_compress(uint32_t* MDbuf, const uint32_t* X) {
 /*
  *  puts bytes from strptr into X and pad out; appends length
  *  and finally, compresses the last block(s)
- *  note: length in bits == 8 * (lswlen + 2^32 mswlen).
+ *  note: length in bits == 8 * lswlen.
  *  note: there are (lswlen mod 64) bytes left in strptr.
  */
-static inline void rmd160_finish(uint32_t* MDbuf, uint8_t const* strptr, uint32_t lswlen, uint32_t mswlen) {
+static inline void rmd160_finish(uint32_t* MDbuf, uint8_t const* strptr, uint32_t lswlen) {
     unsigned int i; /* counter       */
     uint32_t X[16]; /* message words */
 
@@ -352,7 +352,7 @@ static inline void rmd160_finish(uint32_t* MDbuf, uint8_t const* strptr, uint32_
 
     /* append length in bits*/
     X[14] = lswlen << 3;
-    X[15] = (lswlen >> 29) | (mswlen << 3);
+    X[15] = lswlen >> 29;
     rmd160_compress(MDbuf, X);
 }
 
@@ -376,7 +376,7 @@ void silkpre_rmd160(uint8_t out[20], const uint8_t* ptr, size_t len) {
         rmd160_compress(buf, current);
     }
 
-    rmd160_finish(buf, ptr, len, /*mswlen=*/0);
+    rmd160_finish(buf, ptr, len);
 
     for (unsigned i = 0; i < 20; i += 4) {
         out[i] = buf[i >> 2];
