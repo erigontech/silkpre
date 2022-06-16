@@ -14,6 +14,8 @@
    limitations under the License.
 */
 
+#undef NDEBUG
+
 #include "precompile.h"
 
 #include <gmp.h>
@@ -32,6 +34,10 @@
 #include <silkpre/rmd160.h>
 #include <silkpre/secp256k1n.hpp>
 #include <silkpre/sha256.h>
+
+inline void require(bool condition) {
+    if (!condition) __builtin_trap();
+}
 
 enum {
     EVMC_ISTANBUL = 7,
@@ -500,3 +506,53 @@ const SilkpreContract kSilkpreContracts[SILKPRE_NUMBER_OF_ISTANBUL_CONTRACTS] = 
     {silkpre_bn_mul_gas, silkpre_bn_mul_run},     {silkpre_snarkv_gas, silkpre_snarkv_run},
     {silkpre_blake2_f_gas, silkpre_blake2_f_run},
 };
+
+SilkpreResult ethprecompiled_ecrecover(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size) {
+    assert(output_size == 32);
+    auto r = silkpre_ecrec_run(input, input_size);
+    std::copy_n(r.data, output_size, output);
+    return {0, r.size};
+}
+
+SilkpreResult ethprecompiled_sha256(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size) {
+    assert(output_size == 32);
+    silkpre_sha256(output, input, input_size, /*use_cpu_extensions=*/true);
+    return {0, 32};
+}
+
+SilkpreResult ethprecompiled_ripemd160(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size) {
+    assert(output_size == 32);
+    std::memset(output, 0, 12);
+    silkpre_rmd160(&output[12], input, input_size);
+    return {0, 32};
+}
+
+SilkpreResult ethprecompiled_expmod(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size) {
+    const auto r = silkpre_expmod_run(input, input_size);
+    assert(output_size == r.size);
+    std::copy_n(r.data, r.size, output);
+    std::free(r.data);
+    return {0, r.size};
+}
+
+SilkpreResult ethprecompiled_ecmul(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size) {
+    const auto r = silkpre_bn_mul_run(input, input_size);
+    if (r.data == nullptr) return {1, 0};  // Error.
+
+    assert(r.size == 64);
+    assert(output_size == 64);
+    std::copy_n(r.data, r.size, output);
+    std::free(r.data);
+    return {0, r.size};
+}
+
+SilkpreResult ethprecompiled_blake2bf(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size) {
+    const auto r = silkpre_blake2_f_run(input, input_size);
+    if (r.data == nullptr) return {1, 0};  // Error.
+
+    assert(r.size == 64);
+    assert(output_size == 64);
+    std::copy_n(r.data, r.size, output);
+    std::free(r.data);
+    return {0, r.size};
+}

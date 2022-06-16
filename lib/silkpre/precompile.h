@@ -17,6 +17,8 @@
 #ifndef SILKPRE_PRECOMPILE_H_
 #define SILKPRE_PRECOMPILE_H_
 
+#define EXPORT __attribute__((visibility("default")))
+
 #include <stddef.h>
 #include <stdint.h>
 
@@ -45,8 +47,8 @@ typedef struct SilkpreContract {
     SilkpreRunFunction run;
 } SilkpreContract;
 
-uint64_t silkpre_ecrec_gas(const uint8_t* input, size_t len, int evmc_revision);
-SilkpreOutput silkpre_ecrec_run(const uint8_t* input, size_t len);
+EXPORT uint64_t silkpre_ecrec_gas(const uint8_t* input, size_t len, int evmc_revision);
+EXPORT SilkpreOutput silkpre_ecrec_run(const uint8_t* input, size_t len);
 
 uint64_t silkpre_sha256_gas(const uint8_t* input, size_t len, int evmc_revision);
 SilkpreOutput silkpre_sha256_run(const uint8_t* input, size_t len);
@@ -78,7 +80,24 @@ SilkpreOutput silkpre_snarkv_run(const uint8_t* input, size_t len);
 uint64_t silkpre_blake2_f_gas(const uint8_t* input, size_t len, int evmc_revision);
 SilkpreOutput silkpre_blake2_f_run(const uint8_t* input, size_t len);
 
-extern const SilkpreContract kSilkpreContracts[SILKPRE_NUMBER_OF_ISTANBUL_CONTRACTS];
+EXPORT extern const SilkpreContract kSilkpreContracts[SILKPRE_NUMBER_OF_ISTANBUL_CONTRACTS];
+
+struct SilkpreResult {
+    int status_code;
+    size_t output_size;
+};
+
+EXPORT SilkpreResult ethprecompiled_ecrecover(const uint8_t* input, size_t input_size, uint8_t* output,
+                                              size_t output_size);
+EXPORT SilkpreResult ethprecompiled_sha256(const uint8_t* input, size_t input_size, uint8_t* output,
+                                           size_t output_size);
+EXPORT SilkpreResult ethprecompiled_ripemd160(const uint8_t* input, size_t input_size, uint8_t* output,
+                                              size_t output_size);
+EXPORT SilkpreResult ethprecompiled_expmod(const uint8_t* input, size_t input_size, uint8_t* output,
+                                           size_t output_size);
+EXPORT SilkpreResult ethprecompiled_ecmul(const uint8_t* input, size_t input_size, uint8_t* output, size_t output_size);
+EXPORT SilkpreResult ethprecompiled_blake2bf(const uint8_t* input, size_t input_size, uint8_t* output,
+                                             size_t output_size);
 
 #if defined(__cplusplus)
 }
