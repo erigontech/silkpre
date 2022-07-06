@@ -28,7 +28,7 @@
 #include <cpuid.h>
 #include <x86intrin.h>
 
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) && defined(__APPLE__)
 
 #include <arm_neon.h>
 
@@ -482,7 +482,7 @@ __attribute__((constructor)) static void select_sha256_implementation() {
     }
 }
 
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) && defined(__APPLE__)
 
 // The following function was adapted from https://github.com/noloader/SHA-Intrinsics/blob/master/sha256-arm.c
 /* sha256-arm.c - ARMv8 SHA extensions using C intrinsics     */
