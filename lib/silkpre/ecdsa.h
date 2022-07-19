@@ -39,6 +39,12 @@ enum { SILKPRE_SECP256K1_CONTEXT_FLAGS = (SECP256K1_CONTEXT_SIGN | SECP256K1_CON
 bool silkpre_recover_address(uint8_t out[20], const uint8_t message[32], const uint8_t signature[64], bool odd_y_parity,
                              secp256k1_context* context);
 
+bool silkpre_secp256k1_ecdh(
+    const secp256k1_context* context,
+    uint8_t* output,
+    const secp256k1_pubkey* public_key,
+    const uint8_t* private_key);
+
 #if defined(__cplusplus)
 }
 #endif
