@@ -75,6 +75,7 @@ else()
     target_compile_definitions(secp256k1 PUBLIC USE_FIELD_5X52 USE_SCALAR_4X64 HAVE___INT128)
 endif()
 target_compile_definitions(secp256k1 PUBLIC ECMULT_WINDOW_SIZE=15 ECMULT_GEN_PREC_BITS=4 USE_ENDOMORPHISM)
+target_compile_definitions(secp256k1 PUBLIC ENABLE_MODULE_ECDH)
 target_compile_definitions(secp256k1 PUBLIC ENABLE_MODULE_RECOVERY)
 target_include_directories(secp256k1 PRIVATE secp256k1 INTERFACE third_party/secp256k1/include)
 
