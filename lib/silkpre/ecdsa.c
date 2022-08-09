@@ -64,11 +64,23 @@ bool silkpre_recover_address(uint8_t out[20], const uint8_t message[32], const u
     return public_key_to_address(out, public_key);
 }
 
+// degenerate hash function that just copies the given X value
+// see: ecies.GenerateShared in Erigon
+static int ecdh_hash_function_copy_x(
+    unsigned char *output,
+    const unsigned char *x32,
+    const unsigned char *y32,
+    void *data) {
+
+    memcpy(output, x32, 32);
+    return 1;
+};
+
 bool silkpre_secp256k1_ecdh(
     const secp256k1_context* context,
     uint8_t* output,
     const secp256k1_pubkey* public_key,
     const uint8_t* private_key) {
 
-    return secp256k1_ecdh(context, output, public_key, private_key, NULL, NULL);
+    return secp256k1_ecdh(context, output, public_key, private_key, ecdh_hash_function_copy_x, NULL);
 }
