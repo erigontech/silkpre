@@ -19,6 +19,7 @@
 #include <gmp.h>
 
 #include <algorithm>
+#include <bit>
 #include <cstring>
 #include <limits>
 
@@ -476,7 +477,7 @@ SilkpreOutput silkpre_blake2_f_run(const uint8_t* input, size_t len) {
         state.f[0] = std::numeric_limits<uint64_t>::max();
     }
 
-    static_assert(intx::byte_order_is_little_endian);
+    static_assert(std::endian::native == std::endian::little);
     static_assert(sizeof(state.h) == 8 * 8);
     std::memcpy(&state.h, input + 4, 8 * 8);
 
