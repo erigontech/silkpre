@@ -64,7 +64,7 @@ set_target_properties(
 )
 
 # secp256k1
-add_library(secp256k1 third_party/secp256k1/src/secp256k1.c)
+add_library(secp256k1 STATIC third_party/secp256k1/src/secp256k1.c)
 if(MSVC)
     target_link_libraries(secp256k1 PRIVATE gmp)
     target_compile_definitions(secp256k1 PUBLIC USE_NUM_GMP USE_FIELD_INV_NUM USE_SCALAR_INV_NUM)
